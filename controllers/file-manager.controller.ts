@@ -21,6 +21,11 @@ export const upload = (req: Request, res: Response) => {
     if(folderPath) {
       mediaDir = path.join(mediaDir, folderPath);
     }
+
+    // Kiểm tra và tạo thư mục nếu chưa tồn tại
+    if (!fs.existsSync(mediaDir)) {
+      fs.mkdirSync(mediaDir, { recursive: true });
+    }
     
     files.forEach(file => {
       const filename = `${Date.now()}-${file.originalname}`;
